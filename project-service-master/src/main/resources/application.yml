@@ -9,7 +9,7 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/project-db
     username: postgres
-    password: admin
+    password: postgres
     driver-class-name: org.postgresql.Driver
     initialization-mode: always
 
@@ -22,7 +22,7 @@ keycloak:
   ssl-required: none
   resource: ticketing-app
   credentials:
-    secret: yBoinzPIKLwo6dcsS3tvfRBmX8lZfUmn
+    secret: uwp0res5V7KJ7prmU7he8leZCrpHanSm
   use-resource-role-mappings: true
   bearer-only: true
 
