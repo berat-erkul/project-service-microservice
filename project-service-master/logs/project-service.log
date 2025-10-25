@@ -1,0 +1,2 @@
+[ ERROR] [77687] [2025-10-21 18:54:47.672] [http-nio-8082-exec-1] [com.cydeo.exception.GlobalExceptionHandler] - "Access is denied"
+[ ERROR] [77687] [2025-10-21 19:04:43.076] [http-nio-8082-exec-4] [com.cydeo.exception.GlobalExceptionHandler] - "Access is denied"
