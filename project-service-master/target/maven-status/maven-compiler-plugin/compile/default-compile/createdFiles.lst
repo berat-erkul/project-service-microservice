@@ -5,12 +5,14 @@ com/cydeo/dto/ProjectDTO.class
 com/cydeo/dto/wrapper/ResponseWrapper.class
 com/cydeo/enums/Status.class
 com/cydeo/service/ProjectService.class
+com/cydeo/dto/wrapper/TaskResponse$TaskResponseBuilder.class
 com/cydeo/dto/wrapper/ValidationExceptionWrapper$ValidationExceptionWrapperBuilder.class
 com/cydeo/entity/Project.class
 com/cydeo/exception/UserNotFoundException.class
 com/cydeo/dto/wrapper/ResponseWrapper$ResponseWrapperBuilder.class
 com/cydeo/exception/ProjectAccessDeniedException.class
 com/cydeo/exception/ProjectDetailsNotRetrievedException.class
+com/cydeo/dto/wrapper/TaskResponse.class
 com/cydeo/exception/TasksCanNotBeDeletedException.class
 com/cydeo/config/SecurityConfig.class
 com/cydeo/exception/ProjectIsCompletedException.class
@@ -30,3 +32,5 @@ com/cydeo/exception/GlobalExceptionHandler.class
 com/cydeo/dto/wrapper/ExceptionWrapper$ExceptionWrapperBuilder.class
 com/cydeo/entity/BaseEntity.class
 com/cydeo/dto/wrapper/ExceptionWrapper.class
+com/cydeo/client/TaskClient.class
+com/cydeo/client/interceptor/FeignClientInterceptor.class

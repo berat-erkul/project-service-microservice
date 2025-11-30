@@ -8,15 +8,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 
-@FeignClient(name = "task-service", url = "http://localhost:8383/api/v1/task")
+@FeignClient(name = "task-service")
 public interface TaskClient {
 
-    @GetMapping("/count/project/{projectCode}")
+    @GetMapping("/api/v1/task/count/project/{projectCode}")
     ResponseEntity<TaskResponse> getCountsByProject(@PathVariable("projectCode") String projectCode);
 
-    @PutMapping("/complete/project/{projectCode}")
+    @PutMapping("/api/v1/task/complete/project/{projectCode}")
     ResponseEntity<TaskResponse> completeByProject(@PathVariable("projectCode") String projectCode);
 
-    @DeleteMapping("/delete/project/{projectCode}")
+    @DeleteMapping("/api/v1/task/delete/project/{projectCode}")
     ResponseEntity<TaskResponse> deleteByProject(@PathVariable("projectCode") String projectCode);
 }
