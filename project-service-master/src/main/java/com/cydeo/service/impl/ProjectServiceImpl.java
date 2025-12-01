@@ -219,7 +219,7 @@ public class ProjectServiceImpl implements ProjectService {
             throw new ProjectDetailsNotRetrievedException("Project details not retrieved.");
         }
 
-        return new ProjectDTO();
+        return projectDTO;
 
     }
 

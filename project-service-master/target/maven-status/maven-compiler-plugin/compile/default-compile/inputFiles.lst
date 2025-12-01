@@ -18,6 +18,8 @@
 /Users/beraterkul/Desktop/CYDEO SPRİNG COURSE/Last Projects/MİCROSERVİCES PART/initial codes/project/project-service-master/src/main/java/com/cydeo/dto/wrapper/ResponseWrapper.java
 /Users/beraterkul/Desktop/CYDEO SPRİNG COURSE/Last Projects/MİCROSERVİCES PART/initial codes/project/project-service-master/src/main/java/com/cydeo/util/MapperUtil.java
 /Users/beraterkul/Desktop/CYDEO SPRİNG COURSE/Last Projects/MİCROSERVİCES PART/initial codes/project/project-service-master/src/main/java/com/cydeo/exception/ProjectAlreadyExistsException.java
+/Users/beraterkul/Desktop/CYDEO SPRİNG COURSE/Last Projects/MİCROSERVİCES PART/initial codes/project/project-service-master/src/main/java/com/cydeo/client/interceptor/FeignClientInterceptor.java
+/Users/beraterkul/Desktop/CYDEO SPRİNG COURSE/Last Projects/MİCROSERVİCES PART/initial codes/project/project-service-master/src/main/java/com/cydeo/dto/response/TaskResponse.java
 /Users/beraterkul/Desktop/CYDEO SPRİNG COURSE/Last Projects/MİCROSERVİCES PART/initial codes/project/project-service-master/src/main/java/com/cydeo/entity/Project.java
 /Users/beraterkul/Desktop/CYDEO SPRİNG COURSE/Last Projects/MİCROSERVİCES PART/initial codes/project/project-service-master/src/main/java/com/cydeo/exception/ProjectAccessDeniedException.java
 /Users/beraterkul/Desktop/CYDEO SPRİNG COURSE/Last Projects/MİCROSERVİCES PART/initial codes/project/project-service-master/src/main/java/com/cydeo/exception/UserNotFoundException.java
@@ -26,3 +28,4 @@
 /Users/beraterkul/Desktop/CYDEO SPRİNG COURSE/Last Projects/MİCROSERVİCES PART/initial codes/project/project-service-master/src/main/java/com/cydeo/enums/Status.java
 /Users/beraterkul/Desktop/CYDEO SPRİNG COURSE/Last Projects/MİCROSERVİCES PART/initial codes/project/project-service-master/src/main/java/com/cydeo/exception/TasksCanNotBeDeletedException.java
 /Users/beraterkul/Desktop/CYDEO SPRİNG COURSE/Last Projects/MİCROSERVİCES PART/initial codes/project/project-service-master/src/main/java/com/cydeo/exception/ProjectDetailsNotRetrievedException.java
+/Users/beraterkul/Desktop/CYDEO SPRİNG COURSE/Last Projects/MİCROSERVİCES PART/initial codes/project/project-service-master/src/main/java/com/cydeo/client/TaskClient.java

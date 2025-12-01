@@ -1,6 +1,10 @@
 spring:
   application:
     name: project-service
+  cloud:
+    loadbalancer:
+      ribbon:
+        enabled: false
   jpa:
     properties:
       hibernate:
@@ -20,11 +24,11 @@ server:
 
 keycloak:
   realm: cydeo-dev
-  auth-server-url: http://localhost:8080/auth
+  auth-server-url: http://localhost:9090/auth
   ssl-required: none
   resource: ticketing-app
   credentials:
-    secret: uwp0res5V7KJ7prmU7he8leZCrpHanSm
+    secret: Fke857hvf3hj4LPaAAVWkeHSwL8BkDkZ
   use-resource-role-mappings: true
   bearer-only: true
 
