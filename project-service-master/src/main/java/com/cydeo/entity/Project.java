@@ -24,6 +24,7 @@ public class Project extends BaseEntity {
     @Column(nullable = false)
     private String projectName;
 
+    // private User assignedManager;    User-> "String" username (key/unique) so we use String
     @Column(nullable = false)
     private String assignedManager;
 

@@ -20,6 +20,7 @@ import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:8762")
 @RestController
 @RequestMapping("/api/v1/project")
 @Tag(name = "ProjectController", description = "Project controller endpoints")
