@@ -1,6 +1,6 @@
 package com.cydeo.client;
 
-import com.cydeo.dto.wrapper.TaskResponse;
+import com.cydeo.dto.TaskResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 
-@FeignClient(name = "task-service")
+@FeignClient(value = "task-service")
 public interface TaskClient {
 
     @GetMapping("/api/v1/task/count/project/{projectCode}")

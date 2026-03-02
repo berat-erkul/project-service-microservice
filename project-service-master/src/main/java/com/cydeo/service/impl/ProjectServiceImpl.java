@@ -2,7 +2,7 @@ package com.cydeo.service.impl;
 
 import com.cydeo.client.TaskClient;
 import com.cydeo.dto.ProjectDTO;
-import com.cydeo.dto.wrapper.TaskResponse;
+import com.cydeo.dto.TaskResponse;
 import com.cydeo.entity.Project;
 import com.cydeo.enums.Status;
 import com.cydeo.exception.*;
@@ -10,13 +10,11 @@ import com.cydeo.repository.ProjectRepository;
 import com.cydeo.service.KeycloakService;
 import com.cydeo.service.ProjectService;
 import com.cydeo.util.MapperUtil;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -27,7 +25,10 @@ public class ProjectServiceImpl implements ProjectService {
     private final KeycloakService keycloakService;
     private final TaskClient taskClient;
 
-    public ProjectServiceImpl(ProjectRepository projectRepository, MapperUtil mapperUtil, KeycloakService keycloakService, TaskClient taskClient) {
+    public ProjectServiceImpl(ProjectRepository projectRepository,
+                              MapperUtil mapperUtil,
+                              KeycloakService keycloakService,
+                              TaskClient taskClient) {
         this.projectRepository = projectRepository;
         this.mapperUtil = mapperUtil;
         this.keycloakService = keycloakService;
@@ -81,6 +82,7 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
+    @CircuitBreaker(name = "task-service", fallbackMethod = "readAllProjectsWithDetailsFallback")
     public List<ProjectDTO> readAllProjectsWithDetails() {
 
         String loggedInUserUsername = keycloakService.getUsername();
@@ -90,6 +92,23 @@ public class ProjectServiceImpl implements ProjectService {
                 .map(this::retrieveProjectDetails).collect(Collectors.toList());
 
     }
+
+    List<ProjectDTO> readAllProjectsWithDetailsFallback(Throwable throwable) {
+        return Arrays.asList(
+                ProjectDTO.builder()
+                        .nonCompletedTaskCount(0)
+                        .completedTaskCount(0)
+                        .projectDetail("")
+                        .projectName("")
+                        .assignedManager("")
+                        .endDate(null)
+                        .startDate(null)
+                        .projectStatus(null)
+                        .id(null)
+                        .build()
+        );
+    }
+
 
     @Override
     public List<ProjectDTO> adminReadAllProjects() {
@@ -204,19 +223,20 @@ public class ProjectServiceImpl implements ProjectService {
 
         ProjectDTO projectDTO = mapperUtil.convert(project, new ProjectDTO());
 
-        ResponseEntity<TaskResponse> taskResponse = taskClient.getCountsByProject(projectDTO.getProjectCode());
+        ResponseEntity<TaskResponse> taskResponse = taskClient.getCountsByProject(project.getProjectCode());
 
         if (Objects.requireNonNull(taskResponse.getBody()).isSuccess()) {
 
-            Map<String,Integer> taskCounts = (Map<String, Integer>) taskResponse.getBody().getData();
+            Map<String, Integer> taskCounts = (HashMap<String, Integer>) taskResponse.getBody().getData();
 
             Integer completedTaskCount = taskCounts.get("completedTaskCount");
-            Integer uncompletedTaskCount = taskCounts.get("uncompletedTaskCount");
+            Integer nonCompletedTaskCount = taskCounts.get("nonCompletedTaskCount");
 
             projectDTO.setCompletedTaskCount(completedTaskCount);
-            projectDTO.setNonCompletedTaskCount(uncompletedTaskCount);
-        }else{
-            throw new ProjectDetailsNotRetrievedException("Project details not retrieved.");
+            projectDTO.setNonCompletedTaskCount(nonCompletedTaskCount);
+
+        } else {
+            throw new ProjectDetailsNotRetrievedException("Project details can not be retrieved.");
         }
 
         return projectDTO;
@@ -225,20 +245,20 @@ public class ProjectServiceImpl implements ProjectService {
 
     private void completeRelatedTasks(String projectCode) {
 
-        ResponseEntity<TaskResponse> taskResponse = taskClient.completeByProject(projectCode);
+        ResponseEntity<TaskResponse> response = taskClient.completeByProject(projectCode);
 
-        if (!Objects.requireNonNull(taskResponse.getBody()).isSuccess()) {
-            throw new TasksCanNotBeCompletedException("Task of a project " + projectCode + " can not be completed.");
+        if (!Objects.requireNonNull(response.getBody()).isSuccess()) {
+            throw new TasksCanNotBeCompletedException("Tasks of a project " + projectCode + ", can not be completed.");
         }
 
     }
 
     private void deleteRelatedTasks(String projectCode) {
 
-        ResponseEntity<TaskResponse> taskResponse = taskClient.deleteByProject(projectCode);
+        ResponseEntity<TaskResponse> response = taskClient.deleteByProject(projectCode);
 
-        if (!Objects.requireNonNull(taskResponse.getBody()).isSuccess()) {
-            throw new TasksCanNotBeDeletedException("Task of a project " + projectCode + " can not be deleted.");
+        if (!Objects.requireNonNull(response.getBody()).isSuccess()) {
+            throw new TasksCanNotBeDeletedException("Tasks of a project " + projectCode + ", can not be deleted.");
         }
 
     }
