@@ -1,4 +1,6 @@
 spring:
+  profiles:
+    active: default
   cloud:
     config:
       name: project-service
@@ -7,3 +9,19 @@ spring:
       retry:
         max-attempts: 10
         max-interval: 2000
+
+  datasource:
+    url: ${PROJECT_DB_URL}
+    username: ${PROJECT_DB_USERNAME}
+    password: ${PROJECT_DB_PASSWORD}
+
+keycloak:
+  credentials:
+    secret: ${PROJECT_KEYCLOAK_CREDENTIALS}
+
+master:
+  user:
+    username: ${PROJECT_KEYCLOAK_MASTER_USERNAME}
+    password: ${PROJECT_KEYCLOAK_MASTER_PASSWORD}
+  realm: ${PROJECT_KEYCLOAK_MASTER_REALM}
+  client: ${PROJECT_KEYCLOAK_MASTER_CLIENT}
